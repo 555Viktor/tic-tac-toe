@@ -1,3 +1,4 @@
+// Player creation module
 const playerModule = (function () {
     function createPlayer (symbol) {
         let playerName = 'Player' + symbol;
@@ -12,6 +13,7 @@ const playerModule = (function () {
     };
 })();
 
+// Gameboard management module
 const gameBoardModule = (function () {
     const cellsArr = [];
 
@@ -21,18 +23,32 @@ const gameBoardModule = (function () {
 
         for (let i = 0; i < CELL_COUNT; i++) {
             let cell = document.createElement('div');
+           
             cell.classList.add('cell');
-
+            cell.addEventListener('click', handleCellClick);
             cellsArr.push(cell);
+            
             gameContainer.appendChild(cell);
+        }
+    };
+
+    function handleCellClick (event) {
+        const targetCell = event.target;
+
+        if (targetCell.textContent === '') {
+            targetCell.textContent = currentPlayer.symbol;
         }
     }
 
+
     return {
         createGameboardCells,
+        handleCellClick,
+
     }
 })();
 
+// Testing
 window.onload = () => {
     gameBoardModule.createGameboardCells();
 }

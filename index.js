@@ -27,24 +27,13 @@ const gameBoardModule = (function () {
             cell.classList.add('cell');
             cell.addEventListener('click', handleCellClick);
             cellsArr.push(cell);
-            
+
             gameContainer.appendChild(cell);
         }
     };
 
-    function handleCellClick (event) {
-        const targetCell = event.target;
-
-        if (targetCell.textContent === '') {
-            targetCell.textContent = currentPlayer.symbol;
-        }
-    }
-
-
     return {
         createGameboardCells,
-        handleCellClick,
-
     }
 })();
 
@@ -52,3 +41,19 @@ const gameBoardModule = (function () {
 window.onload = () => {
     gameBoardModule.createGameboardCells();
 }
+
+// Game logic module
+
+const gameLogic = (function () {
+    let currentPlayer;
+    const playerX = playerModule.createPlayer('X');
+    const playerO = playerModule.createPlayer('O');
+
+    function handleCellClick (event) {
+        const targetCell = event.target;
+
+        if (targetCell.textContent === '') {
+            targetCell.textContent = currentPlayer.symbol;
+        };
+    }
+})();

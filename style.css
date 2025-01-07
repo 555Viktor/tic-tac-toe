@@ -19,9 +19,13 @@ body > * {
 
 .game-container {
     display: grid;
-    grid-template-columns: repeat(3, 120px);
-    grid-template-rows: repeat(3, 120px);
-    gap: 0.5rem;
-    
+    grid-template-columns: repeat(3, 148px);
+    grid-template-rows: repeat(3, 148px);
+    gap: 0.2rem;
+
     background: black;
+}
+
+.game-container .cell {
+    background: white;
 }

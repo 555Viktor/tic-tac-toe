@@ -16,3 +16,12 @@ body {
 body > * {
     margin-block: 1rem;
 }
+
+.game-container {
+    display: grid;
+    grid-template-columns: repeat(3, 120px);
+    grid-template-rows: repeat(3, 120px);
+    gap: 0.5rem;
+    
+    background: black;
+}

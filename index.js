@@ -2,7 +2,7 @@
 const playerModule = (function () {
     function createPlayer (symbol) {
         let playerName = 'Player' + symbol;
-    
+
         return {
             playerName, symbol
         };
@@ -25,7 +25,7 @@ const gameBoardModule = (function () {
             let cell = document.createElement('div');
            
             cell.classList.add('cell');
-            cell.addEventListener('click', handleCellClick);
+            cell.addEventListener('click', gameLogic.handleCellClick);
             cellsArr.push(cell);
 
             gameContainer.appendChild(cell);
@@ -37,24 +37,33 @@ const gameBoardModule = (function () {
     }
 })();
 
+// Game logic module
+
+const gameLogic = (function () {
+    const playerX = playerModule.createPlayer('X');
+    const playerO = playerModule.createPlayer('O');
+    let currentPlayer = playerX;
+
+    function handleCellClick (event) {
+        const targetCell = event.target;
+        
+        if (targetCell.textContent === '') {
+            targetCell.textContent = currentPlayer.symbol;
+            switchPlayer();
+        };
+        
+    };
+
+    function switchPlayer () {
+        currentPlayer = currentPlayer === playerX ? playerO : playerX;
+    };
+
+    return {
+        handleCellClick
+    }
+})();
+
 // Testing
 window.onload = () => {
     gameBoardModule.createGameboardCells();
 }
-
-// Game logic module
-
-const gameLogic = (function () {
-    let currentPlayer;
-    const playerX = playerModule.createPlayer('X');
-    const playerO = playerModule.createPlayer('O');
-
-    function handleCellClick (event) {
-        const targetCell = event.target;
-        currentPlayer = playerX;
-        
-        if (targetCell.textContent === '') {
-            targetCell.textContent = currentPlayer.symbol;
-        };
-    }
-})();

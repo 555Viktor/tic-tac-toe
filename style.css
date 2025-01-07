@@ -4,13 +4,18 @@
     box-sizing: border-box;
 }
 
-body {
-    min-height: 100vh;
-    
+/* Flex container */
+body,
+.game-container .cell {
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+body {
+    min-height: 100vh;
+
+    flex-direction: column;
   }
   
 body > * {

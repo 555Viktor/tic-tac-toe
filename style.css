@@ -24,8 +24,8 @@ body > * {
 
 .game-container {
     display: grid;
-    grid-template-columns: repeat(3, 148px);
-    grid-template-rows: repeat(3, 148px);
+    grid-template-columns: repeat(3, 132px);
+    grid-template-rows: repeat(3, 132px);
     gap: 0.2rem;
 
     background: black;

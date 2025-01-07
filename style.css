@@ -54,3 +54,7 @@ body > * {
     color: inherit;
     font-size: 1.2rem;
 }
+
+.game-footer .fa-github {
+    font-size: 1.6rem;
+}

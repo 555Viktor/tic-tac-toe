@@ -35,4 +35,10 @@ body > * {
     background: white;
     font-weight: bold;
     font-size: 4rem;
+
+    cursor: pointer;
+}
+
+.cell:hover {
+    background: rgb(237, 234, 234);
 }

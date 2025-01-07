@@ -15,7 +15,7 @@ const playerModule = (function () {
 const gameBoardModule = (function () {
     const cellsArr = [];
 
-    function createBoardCells() {
+    function createGameboardCells () {
         const CELL_COUNT = 9;
         const gameContainer = document.querySelector('.game-container');
 
@@ -29,8 +29,10 @@ const gameBoardModule = (function () {
     }
 
     return {
-        createBoardCells,
+        createGameboardCells,
     }
 })();
 
-gameBoardModule.createBoardCells();
+window.onload = () => {
+    gameBoardModule.createGameboardCells();
+}

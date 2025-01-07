@@ -51,7 +51,8 @@ const gameLogic = (function () {
 
     function handleCellClick (event) {
         const targetCell = event.target;
-
+        currentPlayer = playerX;
+        
         if (targetCell.textContent === '') {
             targetCell.textContent = currentPlayer.symbol;
         };

@@ -33,4 +33,6 @@ body > * {
 
 .game-container .cell {
     background: white;
+    font-weight: bold;
+    font-size: 4rem;
 }

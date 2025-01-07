@@ -49,6 +49,8 @@ body > * {
 }
 
 /* Footer styling */
-.game-footer {
-    
+.game-footer a{
+    text-decoration: none;
+    color: inherit;
+    font-size: 1.2rem;
 }

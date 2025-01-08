@@ -40,11 +40,16 @@ const gameBoardModule = (function () {
 
     function getCellsArr () {
         return cellsArr;
+    };
+ 
+    function getBoardState () {
+        return boardState;
     }
 
     return {
         createGameboardCells,
-        getCellsArr
+        getCellsArr,
+        getBoardState
     }
 })();
 
@@ -52,19 +57,25 @@ const gameBoardModule = (function () {
 const gameLogic = (function () {
     const playerX = playerModule.createPlayer('X');
     const playerO = playerModule.createPlayer('O');
+
     let currentPlayer = playerX;
 
     const cellsArr = gameBoardModule.getCellsArr(); // Copy
-
+    const boardState = gameBoardModule.getBoardState() // Copy
 
     function handleCellClick (event) {
         const targetCell = event.target;
+
         if (targetCell.textContent === '') {
+            let targetIndex = cellsArr.indexOf(targetCell);
+
             targetCell.textContent = currentPlayer.symbol;
+            boardState[targetIndex] = currentPlayer.symbol;
+
+            console.log(boardState);
             switchPlayer();
         };
-        
-        console.log(cellsArr.indexOf(targetCell)); //Test
+
     };
 
     function switchPlayer () {

@@ -42,7 +42,7 @@ const gameBoardModule = (function () {
             cellsArr[i].classList.add('winning-cell')
         });
 
-        disableCellHover();
+        disableCellHover(); // Disable hover effect after winning cell higlight
     };
 
     function disableCellHover () {
@@ -114,7 +114,7 @@ const gameLogic = (function () {
         if (isBoardFull && !checkWinner()) return true;
 
         return false;
-    }
+    };
 
     function checkWinner () {
         const winCombinations = [
@@ -145,7 +145,7 @@ const gameLogic = (function () {
 
     function announceWinner (user) {
         announceMsgEl.textContent = `${user} wins!`;
-    }
+    };
 
     function announceDraw () {
         announceMsgEl.textContent = 'Draw!';
@@ -153,18 +153,18 @@ const gameLogic = (function () {
 
     function clearAnnounceMsg () {
         announceMsgEl.textContent = '';
-    }
+    };
 
     function stopGame () {
         cellsArr.forEach(cell => {
             cell.removeEventListener('click', handleCellClick);
         })
-    }
+    };
 
 
     return {
         handleCellClick
-    }
+    };
 })();
 
 // Testing

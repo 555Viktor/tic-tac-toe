@@ -37,17 +37,24 @@ const gameBoardModule = (function () {
         boardState[index] = symbol;
     };
 
+    function highlightWinnerCells (cells) {
+        cells.forEach(i => {
+            cellsArr[i].classList.add('winning-cell');
+        })
+    };
+
     function getCellsArr () {
         return cellsArr;
     };
 
     function getBoardState () {
         return boardState;
-    }
+    };
 
     return {
         createGameboardCells,
         updateGameBoard,
+        highlightWinnerCells,
         getCellsArr,
         getBoardState
     }
@@ -74,7 +81,13 @@ const gameLogic = (function () {
 
             gameBoardModule.updateGameBoard(targetIndex, currentPlayer.symbol);
 
-            if (checkWinner() || checkDraw()) stopGame();
+            
+            if (checkWinner()) {
+                gameBoardModule.highlightWinnerCells(checkWinner());
+                stopGame();
+            } else if (checkDraw()) {
+                stopGame();
+            }
             else switchPlayer();
         };
 
@@ -88,12 +101,12 @@ const gameLogic = (function () {
         let isBoardFull = boardState.every(cell => cell !== '');
     
         if (isBoardFull && !checkWinner()) return true;
-        
+
         return false;
     }
 
     function checkWinner () {
-        const winningCombinations = [
+        const winCombinations = [
             [0, 1, 2], // Rows 
             [3, 4, 5], 
             [6, 7, 8], 
@@ -104,14 +117,15 @@ const gameLogic = (function () {
             [2, 4, 6]  
         ];
 
-        for (let combination of winningCombinations) {
+
+        for (let combination of winCombinations) {
             const [a, b, c] = combination;
 
             if (boardState[a] 
                 && boardState[a] === boardState[b] 
                 && boardState[a] === boardState[c]) {
                 
-                return currentPlayer.playerName;
+                return combination; // Get winning combination indices
             }
         }  
 

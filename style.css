@@ -43,7 +43,7 @@ body > * {
     cursor: pointer;
 }
 
-.winning-cells {
+.game-container .winning-cell {
     background: #EEDC82;
 }
 

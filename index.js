@@ -35,7 +35,6 @@ const gameBoardModule = (function () {
 
     function updateGameBoard (index, symbol) {
         boardState[index] = symbol;
-        console.log(boardState)
     };
 
     function getCellsArr () {
@@ -56,7 +55,7 @@ const gameLogic = (function () {
     const playerO = playerModule.createPlayer('O');
     let currentPlayer = playerX;
 
-    // Arrays for .cell elements and board state
+    // cellsArr accesed to get index of target cell
     const cellsArr = gameBoardModule.getCellsArr();
 
     function handleCellClick (event) {
@@ -73,6 +72,20 @@ const gameLogic = (function () {
         };
 
     };
+
+    function checkWinner () {
+        const winningCombinations = [
+            [0, 1, 2], // Rows 
+            [3, 4, 5], 
+            [6, 7, 8], 
+            [0, 3, 6], // Columns
+            [1, 4, 7], 
+            [2, 5, 8], 
+            [0, 4, 8], // Diagonals
+            [2, 4, 6]  
+        ];
+        
+    }
 
     function switchPlayer () {
         currentPlayer = currentPlayer === playerX ? playerO : playerX;

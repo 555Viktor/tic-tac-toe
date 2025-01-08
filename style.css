@@ -4,7 +4,7 @@
     box-sizing: border-box;
 }
 
-/* Flex container */
+/* Flex containers */
 body,
 .game-container .cell {
     display: flex;
@@ -14,7 +14,6 @@ body,
 
 body {
     min-height: 100vh;
-
     flex-direction: column;
   }
   

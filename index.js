@@ -73,6 +73,10 @@ const gameLogic = (function () {
     const playerO = playerModule.createPlayer('O');
     let currentPlayer = playerX;
 
+    // Dom element to announce result
+    const announceMsgEl = document.querySelector('#game-result-msg');        
+
+
     // Cells and board state arrays
     const cellsArr = gameBoardModule.getCellsArr();
     const boardState = gameBoardModule.getBoardState();
@@ -89,8 +93,12 @@ const gameLogic = (function () {
             
             if (checkWinner()) {
                 gameBoardModule.highlightWinnerCells(checkWinner());
+                announceWinner(currentPlayer.symbol);
                 stopGame();
-            } else if (checkDraw()) stopGame();
+            } else if (checkDraw()) {
+                announceDraw();
+                stopGame();
+            }
             else switchPlayer();
         };
 
@@ -133,6 +141,18 @@ const gameLogic = (function () {
         }  
 
         return null; // In case of no winner
+    };
+
+    function announceWinner (user) {
+        announceMsgEl.textContent = `${user} wins!`;
+    }
+
+    function announceDraw () {
+        announceMsgEl.textContent = 'Draw!';
+    }
+
+    function clearAnnounceMsg () {
+        announceMsgEl.textContent = '';
     }
 
     function stopGame () {
@@ -143,8 +163,7 @@ const gameLogic = (function () {
 
 
     return {
-        handleCellClick,
-        checkDraw
+        handleCellClick
     }
 })();
 

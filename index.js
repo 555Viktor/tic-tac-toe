@@ -74,7 +74,7 @@ const gameLogic = (function () {
 
             gameBoardModule.updateGameBoard(targetIndex, currentPlayer.symbol);
 
-            if (checkWinner()) stopGame();
+            if (checkWinner() || checkDraw()) stopGame();
             else switchPlayer();
         };
 
@@ -83,6 +83,14 @@ const gameLogic = (function () {
     function switchPlayer () {
         currentPlayer = currentPlayer === playerX ? playerO : playerX;
     };
+
+    function checkDraw () { 
+        let isBoardFull = boardState.every(cell => cell !== '');
+    
+        if (isBoardFull && !checkWinner()) return true;
+        
+        return false;
+    }
 
     function checkWinner () {
         const winningCombinations = [
@@ -116,8 +124,10 @@ const gameLogic = (function () {
         })
     }
 
+
     return {
-        handleCellClick
+        handleCellClick,
+        checkDraw
     }
 })();
 

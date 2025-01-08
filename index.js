@@ -41,10 +41,15 @@ const gameBoardModule = (function () {
         return cellsArr;
     };
 
+    function getBoardState () {
+        return boardState;
+    }
+
     return {
         createGameboardCells,
         updateGameBoard,
         getCellsArr,
+        getBoardState
     }
 })();
 
@@ -55,8 +60,9 @@ const gameLogic = (function () {
     const playerO = playerModule.createPlayer('O');
     let currentPlayer = playerX;
 
-    // cellsArr accesed to get index of target cell
+    // Cells and board state arrays
     const cellsArr = gameBoardModule.getCellsArr();
+    const boardState = gameBoardModule.getBoardState();
 
     function handleCellClick (event) {
         const targetCell = event.target;
@@ -84,7 +90,18 @@ const gameLogic = (function () {
             [0, 4, 8], // Diagonals
             [2, 4, 6]  
         ];
-        
+
+        for (let combination of winningCombinations) {
+            const [a, b, c] = combination;
+
+            if (boardState[a] 
+                && boardState[a] === boardState[b] 
+                && boardState[a] === boardState[c]) {
+                return currentPlayer.playerName;
+            }
+        }  
+
+        return null; //If no winner yet
     }
 
     function switchPlayer () {

@@ -15,6 +15,12 @@ const playerModule = (function () {
 
 // Gameboard management module
 const gameBoardModule = (function () {
+    const boardState = 
+    [  
+        null, null, null,
+        null, null, null,
+        null, null, null
+    ];
     const cellsArr = [];
 
     function createGameboardCells () {
@@ -32,26 +38,33 @@ const gameBoardModule = (function () {
         }
     };
 
+    function getCellsArr () {
+        return cellsArr;
+    }
+
     return {
         createGameboardCells,
+        getCellsArr
     }
 })();
 
 // Game logic module
-
 const gameLogic = (function () {
     const playerX = playerModule.createPlayer('X');
     const playerO = playerModule.createPlayer('O');
     let currentPlayer = playerX;
 
+    const cellsArr = gameBoardModule.getCellsArr(); // Copy
+
+
     function handleCellClick (event) {
         const targetCell = event.target;
-        
         if (targetCell.textContent === '') {
             targetCell.textContent = currentPlayer.symbol;
             switchPlayer();
         };
         
+        console.log(cellsArr.indexOf(targetCell)); //Test
     };
 
     function switchPlayer () {
@@ -59,7 +72,7 @@ const gameLogic = (function () {
     };
 
     return {
-        handleCellClick
+        handleCellClick,
     }
 })();
 

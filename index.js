@@ -40,7 +40,7 @@ const gameBoardModule = (function () {
     function highlightWinnerCells (cells) {
         cells.forEach(i => {
             cellsArr[i].classList.add('winning-cell');
-        })
+        });
     };
 
     function getCellsArr () {
@@ -80,14 +80,11 @@ const gameLogic = (function () {
             targetCell.textContent = currentPlayer.symbol;
 
             gameBoardModule.updateGameBoard(targetIndex, currentPlayer.symbol);
-
             
             if (checkWinner()) {
                 gameBoardModule.highlightWinnerCells(checkWinner());
                 stopGame();
-            } else if (checkDraw()) {
-                stopGame();
-            }
+            } else if (checkDraw()) stopGame();
             else switchPlayer();
         };
 

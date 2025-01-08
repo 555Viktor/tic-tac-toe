@@ -43,6 +43,10 @@ body > * {
     cursor: pointer;
 }
 
+.winning-cells {
+    background: #EEDC82;
+}
+
 .cell:hover {
     background: rgb(237, 234, 234);
 }

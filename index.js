@@ -74,9 +74,14 @@ const gameLogic = (function () {
 
             gameBoardModule.updateGameBoard(targetIndex, currentPlayer.symbol);
 
-            switchPlayer();
+            if (checkWinner()) stopGame();
+            else switchPlayer();
         };
 
+    };
+
+    function switchPlayer () {
+        currentPlayer = currentPlayer === playerX ? playerO : playerX;
     };
 
     function checkWinner () {
@@ -97,19 +102,22 @@ const gameLogic = (function () {
             if (boardState[a] 
                 && boardState[a] === boardState[b] 
                 && boardState[a] === boardState[c]) {
+                
                 return currentPlayer.playerName;
             }
         }  
 
-        return null; //If no winner yet
+        return null; // In case of no winner
     }
 
-    function switchPlayer () {
-        currentPlayer = currentPlayer === playerX ? playerO : playerX;
-    };
+    function stopGame () {
+        cellsArr.forEach(cell => {
+            cell.removeEventListener('click', handleCellClick);
+        })
+    }
 
     return {
-        handleCellClick,
+        handleCellClick
     }
 })();
 

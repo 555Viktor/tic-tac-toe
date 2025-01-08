@@ -61,3 +61,12 @@ body > * {
 .game-footer .fa-github {
     font-size: 1.6rem;
 }
+
+.game-result-container {
+    min-height: 40px;
+    min-width: 40%;
+}
+
+.game-result-container #game-result-msg {
+    text-align: center;
+}

@@ -25,7 +25,7 @@ const gameBoardModule = (function () {
         for (let i = 0; i < CELL_COUNT; i++) {
             let cell = document.createElement('div');
            
-            cell.classList.add('cell');
+            cell.classList.add('cell', 'hover-cell');
             cell.addEventListener('click', gameLogic.handleCellClick);
             cellsArr.push(cell);
 
@@ -39,8 +39,14 @@ const gameBoardModule = (function () {
 
     function highlightWinnerCells (cells) {
         cells.forEach(i => {
-            cellsArr[i].classList.add('winning-cell');
+            cellsArr[i].classList.add('winning-cell')
         });
+
+        disableCellHover();
+    };
+
+    function disableCellHover () {
+        cellsArr.forEach(cell => cell.classList.remove('hover-cell'))
     };
 
     function getCellsArr () {

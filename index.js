@@ -75,7 +75,7 @@ const gameLogic = (function () {
 
     // Dom element to announce result
     const announceMsgEl = document.querySelector('#game-result-msg');        
-
+    const restartMsgEl = document.querySelector('#game-restart-msg');
 
     // Cells and board state arrays
     const cellsArr = gameBoardModule.getCellsArr();

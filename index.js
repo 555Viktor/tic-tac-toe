@@ -15,13 +15,8 @@ const playerModule = (function () {
 
 // Gameboard management module
 const gameBoardModule = (function () {
-    const boardState = 
-    [  
-        null, null, null,
-        null, null, null,
-        null, null, null
-    ];
     const cellsArr = [];
+    const boardState = ['', '', '','', '', '', '', '', ''];
 
     function createGameboardCells () {
         const CELL_COUNT = 9;
@@ -38,6 +33,11 @@ const gameBoardModule = (function () {
         }
     };
 
+    function updateGameBoard (index, symbol) {
+        boardState[index] = symbol;
+        console.log(boardState)
+    };
+
     function getCellsArr () {
         return cellsArr;
     };
@@ -48,6 +48,7 @@ const gameBoardModule = (function () {
 
     return {
         createGameboardCells,
+        updateGameBoard,
         getCellsArr,
         getBoardState
     }
@@ -55,13 +56,14 @@ const gameBoardModule = (function () {
 
 // Game logic module
 const gameLogic = (function () {
+    // Player variables
     const playerX = playerModule.createPlayer('X');
     const playerO = playerModule.createPlayer('O');
-
     let currentPlayer = playerX;
 
-    const cellsArr = gameBoardModule.getCellsArr(); // Copy
-    const boardState = gameBoardModule.getBoardState() // Copy
+    // Arrays for .cell elements and board state
+    const cellsArr = gameBoardModule.getCellsArr();
+    const boardState = gameBoardModule.getBoardState();
 
     function handleCellClick (event) {
         const targetCell = event.target;
@@ -70,9 +72,9 @@ const gameLogic = (function () {
             let targetIndex = cellsArr.indexOf(targetCell);
 
             targetCell.textContent = currentPlayer.symbol;
-            boardState[targetIndex] = currentPlayer.symbol;
 
-            console.log(boardState);
+            gameBoardModule.updateGameBoard(targetIndex, currentPlayer.symbol);
+
             switchPlayer();
         };
 

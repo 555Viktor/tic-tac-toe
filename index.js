@@ -41,16 +41,11 @@ const gameBoardModule = (function () {
     function getCellsArr () {
         return cellsArr;
     };
- 
-    function getBoardState () {
-        return boardState;
-    }
 
     return {
         createGameboardCells,
         updateGameBoard,
         getCellsArr,
-        getBoardState
     }
 })();
 
@@ -63,7 +58,6 @@ const gameLogic = (function () {
 
     // Arrays for .cell elements and board state
     const cellsArr = gameBoardModule.getCellsArr();
-    const boardState = gameBoardModule.getBoardState();
 
     function handleCellClick (event) {
         const targetCell = event.target;

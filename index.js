@@ -6,7 +6,7 @@ const playerModule = (function () {
         return {
             playerName, symbol
         };
-    }
+    };
 
     return {
         createPlayer
@@ -25,18 +25,27 @@ const gameBoardModule = (function () {
         for (let i = 0; i < CELL_COUNT; i++) {
             let cell = document.createElement('div');
            
-            cell.classList.add('cell', 'hover-cell'); // Cell style;
+            cell.classList.add('cell'); // Cell style;
             cell.addEventListener('click', gameLogic.handleCellClick);
             cellsArr.push(cell);
 
             gameContainer.appendChild(cell);
         }
+
+        enableCellHover();
     };
 
     function updateGameBoard (index, symbol) {
         boardState[index] = symbol;
     };
 
+    function enableCellHover () {
+        cellsArr.forEach(cell => cell.classList.add('hover-cell'))
+    };
+
+    function disableCellHover () {
+        cellsArr.forEach(cell => cell.classList.remove('hover-cell'))
+    };
 
     function highlightWinnerCells (cells) {
         cells.forEach(i => {
@@ -44,10 +53,6 @@ const gameBoardModule = (function () {
         });
 
         disableCellHover(); // Disable hover effect after winning cell higlight
-    };
-
-    function disableCellHover () {
-        cellsArr.forEach(cell => cell.classList.remove('hover-cell'))
     };
 
     function getCellsArr () {
@@ -74,12 +79,20 @@ const gameLogic = (function () {
     const playerO = playerModule.createPlayer('O');
     let currentPlayer = playerX;
 
-    // Dom element to announce result
+    // Dom el to announce result
     const announceMsgEl = document.querySelector('#game-result-msg');        
 
     // Cells and board state arrays
     const cellsArr = gameBoardModule.getCellsArr();
     const boardState = gameBoardModule.getBoardState();
+
+    function getUpdatedCellsArr () {
+        return cellsArr;
+    };
+
+    function getUpdatedBoardState () {
+        return boardState;
+    };
 
     function handleCellClick (event) {
         const targetCell = event.target;
@@ -109,6 +122,10 @@ const gameLogic = (function () {
         };
 
     };
+
+    function resetCurrentPlayer () {
+        currentPlayer = playerX;
+    }
 
     function switchPlayer () {
         currentPlayer = currentPlayer === playerX ? playerO : playerX;
@@ -157,25 +174,25 @@ const gameLogic = (function () {
         announceMsgEl.textContent = 'Draw!';
     }
 
-    function clearAnnounceMsg () {
-        announceMsgEl.textContent = '';
-    };
-
     function stopGame () {
         cellsArr.forEach(cell => {
             cell.removeEventListener('click', handleCellClick);
         })
     };
 
-
     return {
-        handleCellClick
+        getUpdatedCellsArr,
+        getUpdatedBoardState,
+        handleCellClick,
+        resetCurrentPlayer
     };
 })();
 
 // Restart module
-const restartGame = (function () {
-    
+const restartGame = (function () { 
+    const updatedCellsArr = gameLogic.getUpdatedCellsArr();
+    const updatedBoardState = gameLogic.getUpdatedBoardState();
+
     const restartMsgEl = document.querySelector('#game-restart-msg');
     const restartMsg = 'Click anywhere to restart.';
 
@@ -183,8 +200,41 @@ const restartGame = (function () {
         restartMsgEl.textContent = restartMsg;
     };
 
+    function clearCellInput () {
+        updatedCellsArr.forEach(cell => {
+            cell.textContent = '';
+        });
+    };
+
+    function resetBoardState () {
+      updatedBoardState.fill('');  
+    };
+
+    function resetBoardUI () {
+        updatedCellsArr.forEach(cell => {
+            cell.classList.add('cell', 'hover-cell');
+            cell.classList.remove('winning-cell');
+        })
+    };
+
+    function addCellEvents () {
+        updatedCellsArr.forEach(cell => {
+            cell.addEventListener('click', gameLogic.handleCellClick);
+        })
+    }
+
+    function restart () {
+        resetBoardState();
+        resetBoardUI();
+        clearCellInput();
+        
+        gameLogic.resetCurrentPlayer();
+        addCellEvents();
+    }
+
     return {
         announceRestartMsg,
+        restart
     }
 })();
 
@@ -192,3 +242,4 @@ const restartGame = (function () {
 window.onload = () => {
     gameBoardModule.createGameboardCells();
 };
+

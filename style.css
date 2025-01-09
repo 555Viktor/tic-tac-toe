@@ -36,8 +36,8 @@ body > * {
 /* Game container and input cells */
 .game-container {
     display: grid;
-    grid-template-columns: repeat(3, 132px);
-    grid-template-rows: repeat(3, 132px);
+    grid-template-columns: repeat(3, 140px);
+    grid-template-rows: repeat(3, 140px);
     gap: 0.8rem; /*Added*/ 
 
     background: inherit; /*Added*/ 

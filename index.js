@@ -111,13 +111,14 @@ const gameLogic = (function () {
                 stopGame();
 
                 restartGame.announceRestartMsg();
-                setInterval(restartGame.enableGameRestart, 1000)
+                setInterval(restartGame.enableGameRestart, 1000);
 
             } else if (checkDraw()) {
                 announceDraw();
                 stopGame();
 
                 restartGame.announceRestartMsg();
+                setInterval(restartGame.enableGameRestart, 1000);
             }
             else switchPlayer();
         };
@@ -194,11 +195,19 @@ const restartGame = (function () {
     const updatedCellsArr = gameLogic.getUpdatedCellsArr();
     const updatedBoardState = gameLogic.getUpdatedBoardState();
 
+    const announceMsgEls = document.querySelectorAll('.game-result-container');
+
     const restartMsgEl = document.querySelector('#game-restart-msg');
     const restartMsg = 'Click anywhere to restart.';
 
     function announceRestartMsg () {
         restartMsgEl.textContent = restartMsg;
+    };
+
+    function clearAnnounceMsgs () {
+        announceMsgEls.forEach(msgEl => {
+            msgEl.textContent = '';
+        })
     };
 
     function clearCellInput () {
@@ -227,10 +236,12 @@ const restartGame = (function () {
     function restart () {
         resetBoardState();
         resetBoardUI();
+
         clearCellInput();
         
         gameLogic.resetCurrentPlayer();
         addCellEvents();
+        clearAnnounceMsgs();
     };
 
     function enableGameRestart () {

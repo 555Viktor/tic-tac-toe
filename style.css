@@ -31,7 +31,7 @@ body {
     min-height: 100vh;
     flex-direction: column;
 
-    background: var(--background-color) /*Added*/ 
+    background: var(--background-color); 
   }
   
 body > * {
@@ -48,14 +48,14 @@ body > * {
     display: grid;
     grid-template-columns: repeat(3, 140px);
     grid-template-rows: repeat(3, 140px);
-    gap: 0.8rem; /*Added*/ 
+    gap: 0.8rem;  
 
-    background: inherit; /*Added*/ 
+    background: inherit;  
 }
 
 .game-container .cell {
-    background: var(--cell-color); /*Added*/
-    border-radius: 8px; /*Added*/ 
+    background: var(--cell-color); 
+    border-radius: 8px;  
     font-weight: bold;
     font-size: 4rem;
 
@@ -63,11 +63,11 @@ body > * {
 }
 
 .game-container .winning-cell {
-    background:var(--winning-cell-color); /*Added*/ 
+    background:var(--winning-cell-color);  
 }
 
 .game-container .hover-cell:hover {
-    background: var(--cell-hover-color); /*Added*/ 
+    background: var(--cell-hover-color);  
 }
 
 /* Footer styling */

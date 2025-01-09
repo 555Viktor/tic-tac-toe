@@ -2,6 +2,8 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+
+    color: #a8bec9; /*Added*/ 
 }
 
 /* Flex containers */
@@ -15,6 +17,8 @@ body,
 body {
     min-height: 100vh;
     flex-direction: column;
+
+    background: #192a32; /*Added*/ 
   }
   
 body > * {
@@ -32,11 +36,11 @@ body > * {
     grid-template-rows: repeat(3, 132px);
     gap: 0.2rem;
 
-    background: black;
+    background: inherit; /*Added*/ 
 }
 
 .game-container .cell {
-    background: white;
+    background: #1f3540; /*Added*/
     font-weight: bold;
     font-size: 4rem;
 

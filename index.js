@@ -111,11 +111,18 @@ const gameLogic = (function () {
                 stopGame();
 
                 restartGame.announceRestartMsg();
+
+                // Enable restart after 1 second
+                setTimeout(restartGame.addRestartEvent, 1000);
+
             } else if (checkDraw()) {
                 announceDraw();
                 stopGame();
 
                 restartGame.announceRestartMsg();
+                
+                // Enable restart after 1 second
+                setTimeout(restartGame.addRestartEvent, 1000);
             }
             else switchPlayer();
         };
@@ -238,9 +245,13 @@ const restartGame = (function () {
         clearAnnounceMsgs();
     };
 
+    function addRestartEvent () {
+        document.addEventListener('click', restart, {once : true});
+    };
+
     return {
         announceRestartMsg,
-        restart
+        addRestartEvent
     };
 })();
 

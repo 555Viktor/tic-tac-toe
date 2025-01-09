@@ -93,9 +93,14 @@ const gameLogic = (function () {
             
             if (checkWinner()) {
                 gameBoardModule.highlightWinnerCells(checkWinner());
+
                 announceWinner(currentPlayer.symbol);
-                launchConfetti();
                 stopGame();
+
+                restartGame.clearCellInput(cellsArr);
+                restartGame.clearCellsArr(cellsArr);
+                restartGame.clearBoardState(boardState);
+
             } else if (checkDraw()) {
                 announceDraw();
                 stopGame();
@@ -175,14 +180,19 @@ const restartGame = (function () {
        cellsArr.length = 0;
     };
 
-    function clearBoardState (boardStateArr) {
-        boardStateArr.forEach(cell => cell = '');
+    function clearBoardState (boardState) {
+        boardState.fill('');
+    };
+
+    function clearCellInput (cellsArr) {
+        cellsArr.forEach(cell => cell.textContent = '');
     };
 
 
     return {
         clearCellsArr,
         clearBoardState,
+        clearCellInput,
 
     }
 })();

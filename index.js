@@ -111,7 +111,6 @@ const gameLogic = (function () {
                 stopGame();
 
                 restartGame.announceRestartMsg();
-                setInterval(restartGame.enableGameRestart, 1000);
 
             } else if (checkDraw()) {
                 announceDraw();
@@ -242,15 +241,12 @@ const restartGame = (function () {
         gameLogic.resetCurrentPlayer();
         addCellEvents();
         clearAnnounceMsgs();
-    };
 
-    function enableGameRestart () {
-        document.addEventListener('click', restart)
-    }
+    };
 
     return {
         announceRestartMsg,
-        enableGameRestart
+        restart
     };
 })();
 

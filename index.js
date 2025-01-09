@@ -168,6 +168,25 @@ const gameLogic = (function () {
     };
 })();
 
+// Restart module
+const restartGame = (function () {
+
+    function clearCellsArr (cellsArr) {
+       cellsArr.length = 0;
+    };
+
+    function clearBoardState (boardStateArr) {
+        boardStateArr.forEach(cell => cell = '');
+    };
+
+
+    return {
+        clearCellsArr,
+        clearBoardState,
+
+    }
+})();
+
 // Testing
 window.onload = () => {
     gameBoardModule.createGameboardCells();

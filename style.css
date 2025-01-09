@@ -2,10 +2,12 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
 
 :root {
-    --text-color:#f7c23c;
+    --h1-color: #a8bec9;
+    --footer-color: #a8bec9;
+    --game-text-color:#f7c23c;
     --background-color: #192a32;; 
     --cell-color: #1f3540; 
-    --winning-cell-color: #2cc6be ; 
+    --winning-cell-color: #2cc6be; 
     --cell-hover-color: #a8bec97e; 
 }
 
@@ -16,7 +18,7 @@
 
     font-family: "IBM Plex Mono", serif;
     font-weight: 700;
-    color: var(--text-color);
+    color: var(--game-text-color);
 }
 
 /* Flex containers */
@@ -40,6 +42,7 @@ body > * {
 
 /* Game header */
 .game-header h1{
+    color: var(--h1-color);
     font-size: 3rem;
 }
 
@@ -83,11 +86,12 @@ body > * {
 /* Footer styling */
 .game-footer a{
     text-decoration: none;
-    color: inherit;
+    color: var(--footer-color);
     font-size: 1.2rem;
 }
 
 .game-footer .fa-github {
     font-size: 1.6rem;
+    color: inherit;
 }
 

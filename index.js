@@ -191,9 +191,8 @@ const gameLogic = (function () {
 const restartGame = (function () { 
     const updatedCellsArr = gameLogic.getUpdatedCellsArr();
     const updatedBoardState = gameLogic.getUpdatedBoardState();
-
-    const announceMsgEls = document.querySelectorAll('.game-result-container');
-
+ 
+    const announceMsgEl = document.querySelector('#game-result-msg'); 
     const restartMsgEl = document.querySelector('#game-restart-msg');
     const restartMsg = 'Click anywhere to restart.';
 
@@ -202,9 +201,7 @@ const restartGame = (function () {
     };
 
     function clearAnnounceMsgs () {
-        announceMsgEls.forEach(msgEl => {
-            msgEl.textContent = '';
-        })
+        announceMsgEl.textContent = restartMsgEl.textContent = '';
     };
 
     function clearCellInput () {

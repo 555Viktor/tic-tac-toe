@@ -94,6 +94,7 @@ const gameLogic = (function () {
             if (checkWinner()) {
                 gameBoardModule.highlightWinnerCells(checkWinner());
                 announceWinner(currentPlayer.symbol);
+                launchConfetti();
                 stopGame();
             } else if (checkDraw()) {
                 announceDraw();
@@ -170,4 +171,4 @@ const gameLogic = (function () {
 // Testing
 window.onload = () => {
     gameBoardModule.createGameboardCells();
-}
+};

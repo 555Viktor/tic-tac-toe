@@ -43,6 +43,16 @@ body > * {
     font-size: 3rem;
 }
 
+/* Game result announcements */
+.game-result-container {
+    min-width: 40%;
+}
+
+.game-result-container #game-result-msg,
+.game-result-container #game-restart-msg  {
+    text-align: center;
+}
+
 /* Game container and input cells */
 .game-container {
     display: grid;
@@ -81,12 +91,3 @@ body > * {
     font-size: 1.6rem;
 }
 
-.game-result-container {
-    min-height: 40px;
-    min-width: 40%;
-}
-
-.game-result-container #game-result-msg,
-.game-result-container #game-restart-msg  {
-    text-align: center;
-}

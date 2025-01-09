@@ -25,7 +25,8 @@ const gameBoardModule = (function () {
         for (let i = 0; i < CELL_COUNT; i++) {
             let cell = document.createElement('div');
            
-            cell.classList.add('cell', 'hover-cell');
+            enableCellHover();
+            cell.classList.add('cell'); // Cell style;
             cell.addEventListener('click', gameLogic.handleCellClick);
             cellsArr.push(cell);
 
@@ -45,6 +46,10 @@ const gameBoardModule = (function () {
         disableCellHover(); // Disable hover effect after winning cell higlight
     };
 
+    function enableCellHover () {
+        cellsArr.forEach(cell => cell.classList.add('hover-cell'))
+    };
+
     function disableCellHover () {
         cellsArr.forEach(cell => cell.classList.remove('hover-cell'))
     };
@@ -62,7 +67,7 @@ const gameBoardModule = (function () {
         updateGameBoard,
         highlightWinnerCells,
         getCellsArr,
-        getBoardState
+        getBoardState,
     }
 })();
 
@@ -101,6 +106,8 @@ const gameLogic = (function () {
             } else if (checkDraw()) {
                 announceDraw();
                 stopGame();
+
+                restartGame.announceRestartMsg();
             }
             else switchPlayer();
         };
@@ -180,6 +187,7 @@ const restartGame = (function () {
         restartMsgEl.textContent = restartMsg;
     };
 
+    // Arrays and cell input reset
     function clearCellsArr (cellsArr) {
        cellsArr.length = 0;
     };
@@ -192,6 +200,7 @@ const restartGame = (function () {
         cellsArr.forEach(cell => cell.textContent = '');
     };
 
+    // 
 
     return {
         clearCellsArr,

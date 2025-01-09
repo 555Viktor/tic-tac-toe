@@ -111,6 +111,7 @@ const gameLogic = (function () {
                 stopGame();
 
                 restartGame.announceRestartMsg();
+                setInterval(restartGame.enableGameRestart, 1000)
 
             } else if (checkDraw()) {
                 announceDraw();
@@ -172,7 +173,7 @@ const gameLogic = (function () {
 
     function announceDraw () {
         announceMsgEl.textContent = 'Draw!';
-    }
+    };
 
     function stopGame () {
         cellsArr.forEach(cell => {
@@ -221,7 +222,7 @@ const restartGame = (function () {
         updatedCellsArr.forEach(cell => {
             cell.addEventListener('click', gameLogic.handleCellClick);
         })
-    }
+    };
 
     function restart () {
         resetBoardState();
@@ -230,12 +231,16 @@ const restartGame = (function () {
         
         gameLogic.resetCurrentPlayer();
         addCellEvents();
+    };
+
+    function enableGameRestart () {
+        document.addEventListener('click', restart)
     }
 
     return {
         announceRestartMsg,
-        restart
-    }
+        enableGameRestart
+    };
 })();
 
 // Testing

@@ -75,7 +75,6 @@ const gameLogic = (function () {
 
     // Dom element to announce result
     const announceMsgEl = document.querySelector('#game-result-msg');        
-    const restartMsgEl = document.querySelector('#game-restart-msg');
 
     // Cells and board state arrays
     const cellsArr = gameBoardModule.getCellsArr();
@@ -97,9 +96,7 @@ const gameLogic = (function () {
                 announceWinner(currentPlayer.symbol);
                 stopGame();
 
-                restartGame.clearCellInput(cellsArr);
-                restartGame.clearCellsArr(cellsArr);
-                restartGame.clearBoardState(boardState);
+                restartGame.announceRestartMsg();
 
             } else if (checkDraw()) {
                 announceDraw();
@@ -175,6 +172,13 @@ const gameLogic = (function () {
 
 // Restart module
 const restartGame = (function () {
+    
+    const restartMsgEl = document.querySelector('#game-restart-msg');
+    const restartMsg = 'Click anywhere to restart.';
+
+    function announceRestartMsg () {
+        restartMsgEl.textContent = restartMsg;
+    };
 
     function clearCellsArr (cellsArr) {
        cellsArr.length = 0;
@@ -193,6 +197,7 @@ const restartGame = (function () {
         clearCellsArr,
         clearBoardState,
         clearCellInput,
+        announceRestartMsg,
 
     }
 })();

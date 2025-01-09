@@ -86,6 +86,7 @@ body > * {
     min-width: 40%;
 }
 
-.game-result-container #game-result-msg {
+.game-result-container #game-result-msg,
+.game-result-container #game-restart-msg  {
     text-align: center;
 }

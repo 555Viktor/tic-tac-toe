@@ -1,4 +1,13 @@
+/* Font import, CSS variables, CSS reset */
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
+
+:root {
+    --text-color:#a8bec9;
+    --background-color: #192a32;; 
+    --cell-color: #1f3540; 
+    --winning-cell-color: #2cc6be ; 
+    --cell-hover-color: #a8bec97e; 
+}
 
 * {
     margin: 0;
@@ -7,7 +16,7 @@
 
     font-family: "IBM Plex Mono", serif;
     font-weight: 700;
-    color: #a8bec9; /*Added*/ 
+    color: var(--text-color);
 }
 
 /* Flex containers */
@@ -22,7 +31,7 @@ body {
     min-height: 100vh;
     flex-direction: column;
 
-    background: #192a32; /*Added*/ 
+    background: var(--background-color) /*Added*/ 
   }
   
 body > * {
@@ -33,6 +42,7 @@ body > * {
 .game-header h1{
     font-size: 3rem;
 }
+
 /* Game container and input cells */
 .game-container {
     display: grid;
@@ -44,7 +54,7 @@ body > * {
 }
 
 .game-container .cell {
-    background: #1f3540; /*Added*/
+    background: var(--cell-color); /*Added*/
     border-radius: 8px; /*Added*/ 
     font-weight: bold;
     font-size: 4rem;
@@ -53,11 +63,11 @@ body > * {
 }
 
 .game-container .winning-cell {
-    background:#2cc6be; /*Added*/ 
+    background:var(--winning-cell-color); /*Added*/ 
 }
 
 .game-container .hover-cell:hover {
-    background:#a8bec97e; /*Added*/ 
+    background: var(--cell-hover-color); /*Added*/ 
 }
 
 /* Footer styling */

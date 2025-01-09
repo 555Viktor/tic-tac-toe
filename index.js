@@ -109,6 +109,7 @@ const gameLogic = (function () {
 
                 announceWinner(currentPlayer.symbol);
                 stopGame();
+                uiEffects.blastConfetti();
 
                 restartGame.announceRestartMsg();
 
@@ -255,7 +256,19 @@ const restartGame = (function () {
     };
 })();
 
-// Testing
+const uiEffects = (function () {
+    const jsConfetti = new JSConfetti();
+
+    function blastConfetti () {
+        jsConfetti.addConfetti(); 
+    };
+
+    return {
+        blastConfetti
+    }
+})();
+ 
+// Generate cells when page is loaded
 window.onload = () => {
     gameBoardModule.createGameboardCells();
 };

@@ -47,7 +47,7 @@ body > * {
 /* Game header */
 .game-header h1{
     color: var(--h1-color);
-    font-size: 3rem;
+    font-size: 3.2rem;
 }
 
 /* Game result announcements */

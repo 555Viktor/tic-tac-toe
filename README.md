@@ -1,4 +1,4 @@
-# Tic Tac Toe 🎮  
+# Tic Tac Toe ⭕❌ 
 
 [![Screenshot](assets/github-tic-tac-toe-preview.png)](https://555viktor.github.io/tic-tac-toe/)  
 

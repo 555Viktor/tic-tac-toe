@@ -21,6 +21,8 @@
     font-family: "IBM Plex Mono", serif;
     font-weight: 700;
     color: var(--game-text-color);
+
+    text-shadow: var(--chars-text-shadow);
 }
 
 /* Flex containers */
@@ -74,7 +76,7 @@ body > * {
     font-weight: bold;
     font-size: 4rem;
 
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+    box-shadow: var(--cell-box-shadow);
     cursor: pointer;
 }
 
@@ -96,5 +98,6 @@ body > * {
 .game-footer .fa-github {
     font-size: 2rem;
     color: initial;
+    text-shadow: none;
 }
 

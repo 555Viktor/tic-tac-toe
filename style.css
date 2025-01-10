@@ -9,8 +9,8 @@
     --cell-color: #1f3540; 
     --winning-cell-color: #2cc6be; 
     --cell-hover-color: #a8bec97e; 
-    --cell-box-shadow: ;
-    --chars-text-shadow: text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    --cell-box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+    --chars-text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 * {

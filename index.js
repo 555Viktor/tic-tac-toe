@@ -40,7 +40,7 @@ const gameBoardModule = (function () {
     };
 
     function enableCellHover () {
-        cellsArr.forEach(cell => cell.classList.add('hover-cell'))
+        cellsArr.forEach(cell => cell.classList.add('hover-cell'));
     };
 
     function disableCellHover () {
@@ -182,9 +182,9 @@ const gameLogic = (function () {
     };
 
     function stopGame () {
-        cellsArr.forEach(cell => {
-            cell.removeEventListener('click', handleCellClick);
-        });
+        for (let i = 0; i < cellsArr.length; i++) {
+            cellsArr[i].removeEventListener('click', handleCellClick);
+        }
     };
 
     return {
@@ -213,9 +213,9 @@ const restartGame = (function () {
     };
 
     function clearCellInput () {
-        updatedCellsArr.forEach(cell => {
-            cell.textContent = '';
-        });
+        for (let i = 0; i < updatedCellsArr.length; i++) {
+            updatedCellsArr[i].textContent = '';
+        }
     };
 
     function resetBoardState () {

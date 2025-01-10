@@ -6,7 +6,7 @@
 Play the game here: https://555viktor.github.io/tic-tac-toe/ or click the image above.  
 
 ## About the Project  
-This **Tic Tac Toe** game is a web-based implementation of the classic two-player game, developed with **HTML**, **CSS**, and **JavaScript**. It offers a clean and interactive interface that allows players to enjoy a smooth gaming experience. Built as a learning exercise, this project emphasizes modular design, event-driven programming, and responsive UI techniques.  
+This **Tic Tac Toe** game is a web-based implementation of the two-player game we all know, developed with **HTML**, **CSS**, and **JavaScript**. Built as a learning exercise, this project emphasizes modular design, event-driven programming, and responsive UI techniques.  
 
 ## Features  
 - **Two-Player Gameplay:** A turn-based game where Player X and Player O compete to align three symbols in a row, column, or diagonal.  
@@ -49,4 +49,4 @@ Want to play the game locally? Follow these steps:
 3. Open the `index.html` file in your favorite browser to start playing!  
 
 ## Acknowledgements  
-This project was created as part of **The Odin Project**, focusing on closures, factory functions, and the module pattern in JavaScript. Special thanks to **The Odin Project** for their curriculum and resources.
+This project was created as part of **The Odin Project**. Special thanks to **The Odin Project** for their curriculum and resources!

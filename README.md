@@ -18,9 +18,8 @@ This **Tic Tac Toe** game is a web-based implementation of the classic two-playe
 ## Technologies Used  
 - **HTML** – For building the game structure.  
 - **CSS** – For styling the game board and ensuring responsiveness.  
-- **JavaScript** – For handling game logic, player turns, win detection, and restart functionality.  
-- **UI Effects Library** – Used to enhance interactions and visuals.  
-
+- **JavaScript** – For handling game logic, player turns, win detection, and restart functionality.
+  
 ## How to Play  
 1. **Player Turns:**  
    - Player X always begins.  

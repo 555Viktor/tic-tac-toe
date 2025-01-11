@@ -18,6 +18,14 @@ const gameBoardModule = (function () {
     const cellsArr = [];
     const boardState = ['', '', '','', '', '', '', '', ''];
 
+    function getCellsArr () {
+        return cellsArr;
+    };
+
+    function getBoardState () {
+        return boardState;
+    };
+
     function createGameboardCells () {
         const CELL_COUNT = 9;
         const gameContainer = document.querySelector('.game-container');
@@ -39,19 +47,11 @@ const gameBoardModule = (function () {
         boardState[index] = symbol;
     };
 
-    function getCellsArr () {
-        return cellsArr;
-    };
-
-    function getBoardState () {
-        return boardState;
-    };
-
     return {
-        createGameboardCells,
-        updateGameBoard,
         getCellsArr,
         getBoardState,
+        createGameboardCells,
+        updateGameBoard,
     }
 })();
 

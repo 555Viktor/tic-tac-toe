@@ -194,6 +194,10 @@ const restartGame = (function () {
 const uiModule = (function () {
     const cellsArr = gameBoardModule.getCellsArr();
 
+    const CLASS_CELL_HOVER = 'hover-cell';
+    const CLASS_CELL_WINNER = 'winning-cell'
+    const CLASS_DEFAULT_CELL = 'cell';
+
     const announceMsgEl = document.querySelector('#game-result-msg'); 
     const restartMsgEl = document.querySelector('#game-restart-msg');
     const restartMsg = 'Click anywhere to restart.';
@@ -201,16 +205,16 @@ const uiModule = (function () {
 
     // Manage cell UI states
     function enableCellHover () {
-        cellsArr.forEach(cell => cell.classList.add('hover-cell'));
+        cellsArr.forEach(cell => cell.classList.add(CLASS_CELL_HOVER));
     };
 
     function disableCellHover () {
-        cellsArr.forEach(cell => cell.classList.remove('hover-cell'))
+        cellsArr.forEach(cell => cell.classList.remove(CLASS_CELL_HOVER))
     };
 
     function highlightWinnerCells (cells) {
         cells.forEach(i => {
-            cellsArr[i].classList.add('winning-cell')
+            cellsArr[i].classList.add(CLASS_CELL_WINNER)
         });
 
         disableCellHover(); // Disable hover effect after winning cell higlight
@@ -225,18 +229,20 @@ const uiModule = (function () {
 
     function clearBoardUI () {
         cellsArr.forEach(cell => {
-            cell.classList.add('cell', 'hover-cell');
-            cell.classList.remove('winning-cell');
+            cell.classList.add(CLASS_DEFAULT_CELL, CLASS_CELL_HOVER);
+            cell.classList.remove(CLASS_CELL_WINNER);
         })
     };
 
     // UI Message Announcements
     function announceWinner (user) {
-        announceMsgEl.textContent = `${user} wins!`;
+        const WINNER_MSG = `${user} wins!`;
+        announceMsgEl.textContent = WINNER_MSG;
     };
 
     function announceDraw () {
-        announceMsgEl.textContent = 'Draw!';
+        const DRAW_MSG = 'Draw!';
+        announceMsgEl.textContent = DRAW_MSG;
     };
 
     function announceRestartMsg () {

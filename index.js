@@ -18,6 +18,14 @@ const gameBoardModule = (function () {
     const cellsArr = [];
     const boardState = ['', '', '','', '', '', '', '', ''];
 
+    function getCellsArr () {
+        return cellsArr;
+    };
+
+    function getBoardState () {
+        return boardState;
+    };
+
     function createGameboardCells () {
         const CELL_COUNT = 9;
         const gameContainer = document.querySelector('.game-container');
@@ -32,43 +40,23 @@ const gameBoardModule = (function () {
             gameContainer.appendChild(cell);
         }
 
-        enableCellHover();
+        uiModule.enableCellHover();
     };
 
     function updateGameBoard (index, symbol) {
         boardState[index] = symbol;
     };
 
-    function enableCellHover () {
-        cellsArr.forEach(cell => cell.classList.add('hover-cell'));
-    };
-
-    function disableCellHover () {
-        cellsArr.forEach(cell => cell.classList.remove('hover-cell'))
-    };
-
-    function highlightWinnerCells (cells) {
-        cells.forEach(i => {
-            cellsArr[i].classList.add('winning-cell')
-        });
-
-        disableCellHover(); // Disable hover effect after winning cell higlight
-    };
-
-    function getCellsArr () {
-        return cellsArr;
-    };
-
-    function getBoardState () {
-        return boardState;
-    };
+    function resetBoardState () {
+        boardState.fill('');  
+      };
 
     return {
-        createGameboardCells,
-        updateGameBoard,
-        highlightWinnerCells,
         getCellsArr,
         getBoardState,
+        createGameboardCells,
+        updateGameBoard,
+        resetBoardState,
     }
 })();
 
@@ -77,22 +65,11 @@ const gameLogic = (function () {
     // Player variables
     const playerX = playerModule.createPlayer('X');
     const playerO = playerModule.createPlayer('O');
-    let currentPlayer = playerX;
-
-    // Dom el to announce result
-    const announceMsgEl = document.querySelector('#game-result-msg');        
+    let currentPlayer = playerX;   
 
     // Cells and board state arrays
     const cellsArr = gameBoardModule.getCellsArr();
     const boardState = gameBoardModule.getBoardState();
-
-    function getUpdatedCellsArr () {
-        return cellsArr;
-    };
-
-    function getUpdatedBoardState () {
-        return boardState;
-    };
 
     function handleCellClick (event) {
         const targetCell = event.target;
@@ -105,22 +82,22 @@ const gameLogic = (function () {
             gameBoardModule.updateGameBoard(targetIndex, currentPlayer.symbol);
             
             if (checkWinner()) {
-                gameBoardModule.highlightWinnerCells(checkWinner());
+                uiModule.highlightWinnerCells(checkWinner());
 
-                announceWinner(currentPlayer.symbol);
+                uiModule.announceWinner(currentPlayer.symbol);
                 stopGame();
-                uiEffects.blastConfetti();
 
-                restartGame.announceRestartMsg();
+                uiModule.announceRestartMsg();
+                uiModule.throwConfetti();
 
                 // Enable restart after 1 second
                 setTimeout(restartGame.addRestartEvent, 1000);
 
             } else if (checkDraw()) {
-                announceDraw();
+                uiModule.announceDraw();
                 stopGame();
 
-                restartGame.announceRestartMsg();
+                uiModule.announceRestartMsg();
                 
                 // Enable restart after 1 second
                 setTimeout(restartGame.addRestartEvent, 1000);
@@ -173,14 +150,6 @@ const gameLogic = (function () {
         return null; // In case of no winner
     };
 
-    function announceWinner (user) {
-        announceMsgEl.textContent = `${user} wins!`;
-    };
-
-    function announceDraw () {
-        announceMsgEl.textContent = 'Draw!';
-    };
-
     function stopGame () {
         for (let i = 0; i < cellsArr.length; i++) {
             cellsArr[i].removeEventListener('click', handleCellClick);
@@ -188,8 +157,6 @@ const gameLogic = (function () {
     };
 
     return {
-        getUpdatedCellsArr,
-        getUpdatedBoardState,
         handleCellClick,
         resetCurrentPlayer
     };
@@ -197,12 +164,89 @@ const gameLogic = (function () {
 
 // Restart module
 const restartGame = (function () { 
-    const updatedCellsArr = gameLogic.getUpdatedCellsArr();
-    const updatedBoardState = gameLogic.getUpdatedBoardState();
- 
+    const cellsArr = gameBoardModule.getCellsArr();
+
+    function addCellEvents () {
+        cellsArr.forEach(cell => {
+            cell.addEventListener('click', gameLogic.handleCellClick);
+        })
+    };
+
+    function restart () {
+        gameBoardModule.resetBoardState();
+        uiModule.clearBoardUI();
+        uiModule.clearCellInput();
+        
+        gameLogic.resetCurrentPlayer();
+        addCellEvents();
+
+        uiModule.clearAnnounceMsgs();
+    };
+
+    function addRestartEvent () {
+        document.addEventListener('click', restart, {once : true});
+    };
+
+    return {
+        addRestartEvent
+    };
+})();
+
+const uiModule = (function () {
+    const cellsArr = gameBoardModule.getCellsArr();
+
+    const CLASS_CELL_HOVER = 'hover-cell';
+    const CLASS_CELL_WINNER = 'winning-cell'
+    const CLASS_DEFAULT_CELL = 'cell';
+
     const announceMsgEl = document.querySelector('#game-result-msg'); 
     const restartMsgEl = document.querySelector('#game-restart-msg');
     const restartMsg = 'Click anywhere to restart.';
+
+    // Confetti effect on game win
+    const jsConfetti = new JSConfetti();
+
+    // Manage cell UI states
+    function enableCellHover () {
+        cellsArr.forEach(cell => cell.classList.add(CLASS_CELL_HOVER));
+    };
+
+    function disableCellHover () {
+        cellsArr.forEach(cell => cell.classList.remove(CLASS_CELL_HOVER))
+    };
+
+    function highlightWinnerCells (cells) {
+        cells.forEach(i => {
+            cellsArr[i].classList.add(CLASS_CELL_WINNER)
+        });
+
+        disableCellHover(); // Disable hover effect after winning cell higlight
+    };
+
+    // Reset cells to default 
+    function clearCellInput () {
+        for (let i = 0; i < cellsArr.length; i++) {
+            cellsArr[i].textContent = '';
+        }
+    };
+
+    function clearBoardUI () {
+        cellsArr.forEach(cell => {
+            cell.classList.add(CLASS_DEFAULT_CELL, CLASS_CELL_HOVER);
+            cell.classList.remove(CLASS_CELL_WINNER);
+        })
+    };
+
+    // UI Message Announcements
+    function announceWinner (user) {
+        const WINNER_MSG = `${user} wins!`;
+        announceMsgEl.textContent = WINNER_MSG;
+    };
+
+    function announceDraw () {
+        const DRAW_MSG = 'Draw!';
+        announceMsgEl.textContent = DRAW_MSG;
+    };
 
     function announceRestartMsg () {
         restartMsgEl.textContent = restartMsg;
@@ -212,60 +256,23 @@ const restartGame = (function () {
         announceMsgEl.textContent = restartMsgEl.textContent = '';
     };
 
-    function clearCellInput () {
-        for (let i = 0; i < updatedCellsArr.length; i++) {
-            updatedCellsArr[i].textContent = '';
-        }
-    };
-
-    function resetBoardState () {
-      updatedBoardState.fill('');  
-    };
-
-    function resetBoardUI () {
-        updatedCellsArr.forEach(cell => {
-            cell.classList.add('cell', 'hover-cell');
-            cell.classList.remove('winning-cell');
-        })
-    };
-
-    function addCellEvents () {
-        updatedCellsArr.forEach(cell => {
-            cell.addEventListener('click', gameLogic.handleCellClick);
-        })
-    };
-
-    function restart () {
-        resetBoardState();
-        resetBoardUI();
-
-        clearCellInput();
-        
-        gameLogic.resetCurrentPlayer();
-        addCellEvents();
-        clearAnnounceMsgs();
-    };
-
-    function addRestartEvent () {
-        document.addEventListener('click', restart, {once : true});
+    // Extra effects
+    function throwConfetti () {
+        jsConfetti.addConfetti();
     };
 
     return {
+        enableCellHover,
+        highlightWinnerCells,
+        announceWinner,
+        announceDraw,
         announceRestartMsg,
-        addRestartEvent
-    };
-})();
-
-const uiEffects = (function () {
-    const jsConfetti = new JSConfetti();
-
-    function blastConfetti () {
-        jsConfetti.addConfetti(); 
-    };
-
-    return {
-        blastConfetti
+        clearAnnounceMsgs,
+        clearCellInput,
+        clearBoardUI,
+        throwConfetti
     }
+
 })();
  
 // Generate cells when page is loaded

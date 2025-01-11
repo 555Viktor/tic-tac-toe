@@ -39,20 +39,12 @@ const gameBoardModule = (function () {
         boardState[index] = symbol;
     };
 
-    // function enableCellHover (cells) {
-    //     cells.forEach(cell => cell.classList.add('hover-cell'));
-    // };
-
-    function disableCellHover () {
-        cellsArr.forEach(cell => cell.classList.remove('hover-cell'))
-    };
-
     function highlightWinnerCells (cells) {
         cells.forEach(i => {
             cellsArr[i].classList.add('winning-cell')
         });
 
-        disableCellHover(); // Disable hover effect after winning cell higlight
+        uiModule.disableCellHover(); // Disable hover effect after winning cell higlight
     };
 
     function getCellsArr () {
@@ -262,8 +254,13 @@ const uiModule = (function () {
         cellsArr.forEach(cell => cell.classList.add('hover-cell'));
     };
 
+    function disableCellHover () {
+        cellsArr.forEach(cell => cell.classList.remove('hover-cell'))
+    };
+
     return {
         enableCellHover,
+        disableCellHover,
     }
 
 })();

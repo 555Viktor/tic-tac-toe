@@ -90,7 +90,7 @@ const gameLogic = (function () {
                 uiModule.announceWinner(currentPlayer.symbol);
                 stopGame();
 
-                restartGame.announceRestartMsg();
+                uiModule.announceRestartMsg();
 
                 // Enable restart after 1 second
                 setTimeout(restartGame.addRestartEvent, 1000);
@@ -170,18 +170,6 @@ const gameLogic = (function () {
 const restartGame = (function () { 
     const updatedCellsArr = gameLogic.getUpdatedCellsArr();
     const updatedBoardState = gameLogic.getUpdatedBoardState();
- 
-    const announceMsgEl = document.querySelector('#game-result-msg'); 
-    const restartMsgEl = document.querySelector('#game-restart-msg');
-    const restartMsg = 'Click anywhere to restart.';
-
-    function announceRestartMsg () {
-        restartMsgEl.textContent = restartMsg;
-    };
-
-    function clearAnnounceMsgs () {
-        announceMsgEl.textContent = restartMsgEl.textContent = '';
-    };
 
     function clearCellInput () {
         for (let i = 0; i < updatedCellsArr.length; i++) {
@@ -214,7 +202,7 @@ const restartGame = (function () {
         
         gameLogic.resetCurrentPlayer();
         addCellEvents();
-        clearAnnounceMsgs();
+        uiModule.clearAnnounceMsgs();
     };
 
     function addRestartEvent () {
@@ -222,14 +210,17 @@ const restartGame = (function () {
     };
 
     return {
-        announceRestartMsg,
         addRestartEvent
     };
 })();
 
 const uiModule = (function () {
     const cellsArr = gameBoardModule.getCellsArr();
+
     const announceMsgEl = document.querySelector('#game-result-msg'); 
+    const restartMsgEl = document.querySelector('#game-restart-msg');
+    const restartMsg = 'Click anywhere to restart.';
+
 
     // Manage cell UI states
     function enableCellHover () {
@@ -257,11 +248,21 @@ const uiModule = (function () {
         announceMsgEl.textContent = 'Draw!';
     };
 
+    function announceRestartMsg () {
+        restartMsgEl.textContent = restartMsg;
+    };
+
+    function clearAnnounceMsgs () {
+        announceMsgEl.textContent = restartMsgEl.textContent = '';
+    };
+
     return {
         enableCellHover,
         highlightWinnerCells,
         announceWinner,
         announceDraw,
+        announceRestartMsg,
+        clearAnnounceMsgs,
     }
 
 })();

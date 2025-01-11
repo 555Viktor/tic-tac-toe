@@ -161,21 +161,8 @@ const restartGame = (function () {
     const cellsArr = gameBoardModule.getCellsArr();
     const boardState = gameBoardModule.getBoardState();
 
-    function clearCellInput () {
-        for (let i = 0; i < cellsArr.length; i++) {
-            cellsArr[i].textContent = '';
-        }
-    };
-
     function resetBoardState () {
       boardState.fill('');  
-    };
-
-    function resetBoardUI () {
-        cellsArr.forEach(cell => {
-            cell.classList.add('cell', 'hover-cell');
-            cell.classList.remove('winning-cell');
-        })
     };
 
     function addCellEvents () {
@@ -186,12 +173,12 @@ const restartGame = (function () {
 
     function restart () {
         resetBoardState();
-        resetBoardUI();
-
-        clearCellInput();
+        uiModule.resetBoardUI();
+        uiModule.clearCellInput();
         
         gameLogic.resetCurrentPlayer();
         addCellEvents();
+        
         uiModule.clearAnnounceMsgs();
     };
 
@@ -246,6 +233,21 @@ const uiModule = (function () {
         announceMsgEl.textContent = restartMsgEl.textContent = '';
     };
 
+    // Reset cells to default 
+
+    function clearCellInput () {
+        for (let i = 0; i < cellsArr.length; i++) {
+            cellsArr[i].textContent = '';
+        }
+    };
+
+    function resetBoardUI () {
+        cellsArr.forEach(cell => {
+            cell.classList.add('cell', 'hover-cell');
+            cell.classList.remove('winning-cell');
+        })
+    };
+
     return {
         enableCellHover,
         highlightWinnerCells,
@@ -253,6 +255,8 @@ const uiModule = (function () {
         announceDraw,
         announceRestartMsg,
         clearAnnounceMsgs,
+        clearCellInput,
+        resetBoardUI
     }
 
 })();

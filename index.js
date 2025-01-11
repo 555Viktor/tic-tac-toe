@@ -47,11 +47,16 @@ const gameBoardModule = (function () {
         boardState[index] = symbol;
     };
 
+    function resetBoardState () {
+        boardState.fill('');  
+      };
+
     return {
         getCellsArr,
         getBoardState,
         createGameboardCells,
         updateGameBoard,
+        resetBoardState,
     }
 })();
 
@@ -159,11 +164,6 @@ const gameLogic = (function () {
 // Restart module
 const restartGame = (function () { 
     const cellsArr = gameBoardModule.getCellsArr();
-    const boardState = gameBoardModule.getBoardState();
-
-    function resetBoardState () {
-      boardState.fill('');  
-    };
 
     function addCellEvents () {
         cellsArr.forEach(cell => {
@@ -172,7 +172,7 @@ const restartGame = (function () {
     };
 
     function restart () {
-        resetBoardState();
+        gameBoardModule.resetBoardState();
         uiModule.clearBoardUI();
         uiModule.clearCellInput();
         

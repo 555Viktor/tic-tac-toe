@@ -192,6 +192,7 @@ const restartGame = (function () {
     };
 })();
 
+// UI module
 const uiModule = (function () {
     const cellsArr = gameBoardModule.getCellsArr();
 

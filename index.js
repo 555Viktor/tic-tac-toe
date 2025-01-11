@@ -88,6 +88,7 @@ const gameLogic = (function () {
                 stopGame();
 
                 uiModule.announceRestartMsg();
+                uiModule.throwConfetti();
 
                 // Enable restart after 1 second
                 setTimeout(restartGame.addRestartEvent, 1000);
@@ -202,6 +203,8 @@ const uiModule = (function () {
     const restartMsgEl = document.querySelector('#game-restart-msg');
     const restartMsg = 'Click anywhere to restart.';
 
+    // Confetti effect on game win
+    const jsConfetti = new JSConfetti();
 
     // Manage cell UI states
     function enableCellHover () {
@@ -253,6 +256,11 @@ const uiModule = (function () {
         announceMsgEl.textContent = restartMsgEl.textContent = '';
     };
 
+    // Extra effects
+    function throwConfetti () {
+        jsConfetti.addConfetti();
+    };
+
     return {
         enableCellHover,
         highlightWinnerCells,
@@ -261,7 +269,8 @@ const uiModule = (function () {
         announceRestartMsg,
         clearAnnounceMsgs,
         clearCellInput,
-        clearBoardUI
+        clearBoardUI,
+        throwConfetti
     }
 
 })();

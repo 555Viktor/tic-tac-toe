@@ -32,16 +32,16 @@ const gameBoardModule = (function () {
             gameContainer.appendChild(cell);
         }
 
-        enableCellHover();
+        uiModule.enableCellHover();
     };
 
     function updateGameBoard (index, symbol) {
         boardState[index] = symbol;
     };
 
-    function enableCellHover () {
-        cellsArr.forEach(cell => cell.classList.add('hover-cell'));
-    };
+    // function enableCellHover (cells) {
+    //     cells.forEach(cell => cell.classList.add('hover-cell'));
+    // };
 
     function disableCellHover () {
         cellsArr.forEach(cell => cell.classList.remove('hover-cell'))
@@ -109,7 +109,6 @@ const gameLogic = (function () {
 
                 announceWinner(currentPlayer.symbol);
                 stopGame();
-                uiEffects.blastConfetti();
 
                 restartGame.announceRestartMsg();
 
@@ -256,16 +255,17 @@ const restartGame = (function () {
     };
 })();
 
-const uiEffects = (function () {
-    const jsConfetti = new JSConfetti();
+const uiModule = (function () {
+    const cellsArr = gameBoardModule.getCellsArr();
 
-    function blastConfetti () {
-        jsConfetti.addConfetti(); 
+    function enableCellHover () {
+        cellsArr.forEach(cell => cell.classList.add('hover-cell'));
     };
 
     return {
-        blastConfetti
+        enableCellHover,
     }
+
 })();
  
 // Generate cells when page is loaded

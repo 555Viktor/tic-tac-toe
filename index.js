@@ -60,10 +60,7 @@ const gameLogic = (function () {
     // Player variables
     const playerX = playerModule.createPlayer('X');
     const playerO = playerModule.createPlayer('O');
-    let currentPlayer = playerX;
-
-    // Dom el to announce result
-    const announceMsgEl = document.querySelector('#game-result-msg');        
+    let currentPlayer = playerX;   
 
     // Cells and board state arrays
     const cellsArr = gameBoardModule.getCellsArr();
@@ -90,7 +87,7 @@ const gameLogic = (function () {
             if (checkWinner()) {
                 uiModule.highlightWinnerCells(checkWinner());
 
-                announceWinner(currentPlayer.symbol);
+                uiModule.announceWinner(currentPlayer.symbol);
                 stopGame();
 
                 restartGame.announceRestartMsg();
@@ -99,7 +96,7 @@ const gameLogic = (function () {
                 setTimeout(restartGame.addRestartEvent, 1000);
 
             } else if (checkDraw()) {
-                announceDraw();
+                uiModule.announceDraw();
                 stopGame();
 
                 restartGame.announceRestartMsg();
@@ -153,14 +150,6 @@ const gameLogic = (function () {
         }  
 
         return null; // In case of no winner
-    };
-
-    function announceWinner (user) {
-        announceMsgEl.textContent = `${user} wins!`;
-    };
-
-    function announceDraw () {
-        announceMsgEl.textContent = 'Draw!';
     };
 
     function stopGame () {
@@ -240,6 +229,7 @@ const restartGame = (function () {
 
 const uiModule = (function () {
     const cellsArr = gameBoardModule.getCellsArr();
+    const announceMsgEl = document.querySelector('#game-result-msg'); 
 
     // Manage cell UI states
     function enableCellHover () {
@@ -258,9 +248,20 @@ const uiModule = (function () {
         disableCellHover(); // Disable hover effect after winning cell higlight
     };
 
+    // UI Message Announcements
+    function announceWinner (user) {
+        announceMsgEl.textContent = `${user} wins!`;
+    };
+
+    function announceDraw () {
+        announceMsgEl.textContent = 'Draw!';
+    };
+
     return {
         enableCellHover,
-        highlightWinnerCells
+        highlightWinnerCells,
+        announceWinner,
+        announceDraw,
     }
 
 })();

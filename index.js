@@ -39,14 +39,6 @@ const gameBoardModule = (function () {
         boardState[index] = symbol;
     };
 
-    function highlightWinnerCells (cells) {
-        cells.forEach(i => {
-            cellsArr[i].classList.add('winning-cell')
-        });
-
-        uiModule.disableCellHover(); // Disable hover effect after winning cell higlight
-    };
-
     function getCellsArr () {
         return cellsArr;
     };
@@ -58,7 +50,6 @@ const gameBoardModule = (function () {
     return {
         createGameboardCells,
         updateGameBoard,
-        highlightWinnerCells,
         getCellsArr,
         getBoardState,
     }
@@ -97,7 +88,7 @@ const gameLogic = (function () {
             gameBoardModule.updateGameBoard(targetIndex, currentPlayer.symbol);
             
             if (checkWinner()) {
-                gameBoardModule.highlightWinnerCells(checkWinner());
+                uiModule.highlightWinnerCells(checkWinner());
 
                 announceWinner(currentPlayer.symbol);
                 stopGame();
@@ -250,6 +241,7 @@ const restartGame = (function () {
 const uiModule = (function () {
     const cellsArr = gameBoardModule.getCellsArr();
 
+    // Manage cell UI states
     function enableCellHover () {
         cellsArr.forEach(cell => cell.classList.add('hover-cell'));
     };
@@ -258,9 +250,17 @@ const uiModule = (function () {
         cellsArr.forEach(cell => cell.classList.remove('hover-cell'))
     };
 
+    function highlightWinnerCells (cells) {
+        cells.forEach(i => {
+            cellsArr[i].classList.add('winning-cell')
+        });
+
+        disableCellHover(); // Disable hover effect after winning cell higlight
+    };
+
     return {
         enableCellHover,
-        disableCellHover,
+        highlightWinnerCells
     }
 
 })();

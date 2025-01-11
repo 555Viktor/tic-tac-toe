@@ -66,14 +66,6 @@ const gameLogic = (function () {
     const cellsArr = gameBoardModule.getCellsArr();
     const boardState = gameBoardModule.getBoardState();
 
-    function getUpdatedCellsArr () {
-        return cellsArr;
-    };
-
-    function getUpdatedBoardState () {
-        return boardState;
-    };
-
     function handleCellClick (event) {
         const targetCell = event.target;
 
@@ -99,7 +91,7 @@ const gameLogic = (function () {
                 uiModule.announceDraw();
                 stopGame();
 
-                restartGame.announceRestartMsg();
+                uiModule.announceRestartMsg();
                 
                 // Enable restart after 1 second
                 setTimeout(restartGame.addRestartEvent, 1000);
@@ -159,8 +151,6 @@ const gameLogic = (function () {
     };
 
     return {
-        getUpdatedCellsArr,
-        getUpdatedBoardState,
         handleCellClick,
         resetCurrentPlayer
     };
@@ -168,28 +158,28 @@ const gameLogic = (function () {
 
 // Restart module
 const restartGame = (function () { 
-    const updatedCellsArr = gameLogic.getUpdatedCellsArr();
-    const updatedBoardState = gameLogic.getUpdatedBoardState();
+    const cellsArr = gameBoardModule.getCellsArr();
+    const boardState = gameBoardModule.getBoardState();
 
     function clearCellInput () {
-        for (let i = 0; i < updatedCellsArr.length; i++) {
-            updatedCellsArr[i].textContent = '';
+        for (let i = 0; i < cellsArr.length; i++) {
+            cellsArr[i].textContent = '';
         }
     };
 
     function resetBoardState () {
-      updatedBoardState.fill('');  
+      boardState.fill('');  
     };
 
     function resetBoardUI () {
-        updatedCellsArr.forEach(cell => {
+        cellsArr.forEach(cell => {
             cell.classList.add('cell', 'hover-cell');
             cell.classList.remove('winning-cell');
         })
     };
 
     function addCellEvents () {
-        updatedCellsArr.forEach(cell => {
+        cellsArr.forEach(cell => {
             cell.addEventListener('click', gameLogic.handleCellClick);
         })
     };
